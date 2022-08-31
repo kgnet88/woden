@@ -1,6 +1,6 @@
 namespace Goedde88.Woden.User.Api;
 
-public static class Program
+public static class UserApi
 {
     private static void Main(string[] args)
     {
