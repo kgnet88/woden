@@ -3,94 +3,36 @@
 public class AuthService : IAuthService
 {
     private readonly IConfiguration _configuration;
-    private readonly UserManager<DbUser> _userManager;
-    private readonly SignInManager<DbUser> _signInManager;
+    private readonly IAuthRepository _authRepository;
 
     public AuthService(
         IConfiguration configuration,
-        UserManager<DbUser> userManager,
-        SignInManager<DbUser> signInManager)
+        IAuthRepository authRepository)
     {
         this._configuration = configuration;
-        this._userManager = userManager;
-        this._signInManager = signInManager;
+        this._authRepository = authRepository;
     }
 
     public async Task<bool> DeleteUserByNameAsync(string username)
     {
-        var user = await this._userManager.FindByNameAsync(username);
-
-        if (user is null)
-        {
-            string message = $"A user {username} does not exist!";
-            throw new ValidationException(message, new[]
-            {
-                new ValidationFailure(nameof(username), message)
-            });
-        }
-
-        return (await this._userManager.DeleteAsync(user)).Succeeded;
+        return await this._authRepository.DeleteUserByNameAsync(username);
     }
 
     public async Task<string> LoginUserAsync(string username, string password)
     {
-        var user = await this._userManager.FindByNameAsync(username);
+        var user = await this._authRepository.LoginUserAsync(username, password);
 
-        if (user is null)
-        {
-            string message = $"A user {username} does not exist!";
-            throw new ValidationException(message, new[]
-            {
-                new ValidationFailure(nameof(username), message)
-            });
-        }
-
-        var result = await this._signInManager.CheckPasswordSignInAsync(
-            user,
-            password,
-            false);
-
-        if (!result.Succeeded)
-        {
-            const string message = "username or password are wrong!";
-            throw new ValidationException(message, new[]
-            {
-                new ValidationFailure(nameof(username), message)
-            });
-        }
-
-        return this.GenerateToken(username);
+        return this.GenerateToken(user.Username);
     }
 
-    public async Task RegisterUserAsync(User user)
+    public async Task RegisterUserAsync(User user, string password)
     {
-        var dbUser = await this._userManager.FindByNameAsync(user.Username);
+        await this._authRepository.RegisterUserAsync(user.ToUserDto(), password);
+    }
 
-        if (dbUser is not null)
-        {
-            string message = $"A user {user.Username} already exists!";
-            throw new ValidationException(message, new[]
-            {
-                new ValidationFailure(nameof(user), message)
-            });
-        }
-
-        var newUser = new DbUser()
-        {
-            UserName = user.Username,
-            Email = user.Email
-        };
-
-        var result = await this._userManager.CreateAsync(newUser, user.Password);
-
-        if (!result.Succeeded)
-        {
-            string message = $"A user with {user.Username} cannot be registered!";
-            throw new ValidationException(message, new[]
-            {
-                new ValidationFailure(nameof(user), message)
-            });
-        }
+    public Task RegisterUserAsync(User user)
+    {
+        throw new NotImplementedException();
     }
 
     private string GenerateToken(string username)
