@@ -1,4 +1,4 @@
-﻿namespace Goedde88.Woden.Account.Api.Auth.Infrastructure.Configuration;
+﻿namespace KgNet88.Woden.Account.Api.Auth.Infrastructure.Configuration;
 
 public class JwtToken
 {

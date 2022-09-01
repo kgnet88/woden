@@ -1,4 +1,4 @@
-﻿namespace Goedde88.Woden.Account.Api.Auth.Mappings;
+﻿namespace KgNet88.Woden.Account.Api.Auth.Mappings;
 
 public static class ApiContractToDomainMapper
 {

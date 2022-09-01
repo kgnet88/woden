@@ -1,0 +1,40 @@
+@startuml
+
+package "Webservices" as ws {
+  database "PostgreSql" as pg
+  interface SQL as sql1
+  component "Account API" as acc
+  component "Collection APIs" as coll
+  component "Aggregator" as agg
+}
+
+acc -[hidden]- agg
+agg -[hidden]- coll
+
+package "Application" as app {
+  component "User Portal" as up
+}
+
+package "matrix" as mat {
+  component "Home Server" as mhs {
+    component "Application Service" as ma
+  }
+}
+
+interface REST as r1
+
+' DB -> WS
+pg -r- sql1
+sql1 -u- acc
+sql1 -r- agg
+sql1 -- coll
+
+' WS -> App
+acc -- r1
+agg -u- r1
+r1 -r- up
+
+' WS -> matrix
+r1 -u- ma
+
+@enduml

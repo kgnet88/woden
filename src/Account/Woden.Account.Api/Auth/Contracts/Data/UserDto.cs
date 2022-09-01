@@ -1,4 +1,4 @@
-﻿namespace Goedde88.Woden.Account.Api.Auth.Contracts.Data;
+﻿namespace KgNet88.Woden.Account.Api.Auth.Contracts.Data;
 
 public class UserDto
 {

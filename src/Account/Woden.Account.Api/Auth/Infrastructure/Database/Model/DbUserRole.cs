@@ -1,4 +1,4 @@
-﻿namespace Goedde88.Woden.Account.Api.Auth.Infrastructure.Database.Model;
+﻿namespace KgNet88.Woden.Account.Api.Auth.Infrastructure.Database.Model;
 
 public class DbUserRole : IdentityUserRole<Guid>
 {

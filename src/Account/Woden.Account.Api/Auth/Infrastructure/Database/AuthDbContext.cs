@@ -1,4 +1,4 @@
-﻿namespace Goedde88.Woden.Account.Api.Auth.Infrastructure.Database;
+﻿namespace KgNet88.Woden.Account.Api.Auth.Infrastructure.Database;
 
 public class AuthDbContext
     : IdentityDbContext<

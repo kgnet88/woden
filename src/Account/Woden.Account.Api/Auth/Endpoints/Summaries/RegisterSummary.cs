@@ -1,4 +1,4 @@
-﻿namespace Goedde88.Woden.Account.Api.Auth.Endpoints.Summaries;
+﻿namespace KgNet88.Woden.Account.Api.Auth.Endpoints.Summaries;
 
 public class RegisterSummary : Summary<RegisterEndpoint, RegisterRequest>
 {

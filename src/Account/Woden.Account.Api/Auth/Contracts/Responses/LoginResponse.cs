@@ -1,4 +1,4 @@
-﻿namespace Goedde88.Woden.Account.Api.Auth.Contracts.Responses;
+﻿namespace KgNet88.Woden.Account.Api.Auth.Contracts.Responses;
 
 public class LoginResponse
 {

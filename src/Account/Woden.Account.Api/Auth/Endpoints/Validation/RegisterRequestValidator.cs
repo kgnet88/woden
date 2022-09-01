@@ -1,4 +1,4 @@
-﻿namespace Goedde88.Woden.Account.Api.Auth.Endpoints.Validation;
+﻿namespace KgNet88.Woden.Account.Api.Auth.Endpoints.Validation;
 
 public class RegisterRequestValidator : Validator<RegisterRequest>
 {

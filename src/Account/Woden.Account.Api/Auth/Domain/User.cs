@@ -1,4 +1,4 @@
-﻿namespace Goedde88.Woden.Account.Api.Auth.Domain;
+﻿namespace KgNet88.Woden.Account.Api.Auth.Domain;
 
 public class User
 {

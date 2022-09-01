@@ -6,7 +6,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
 		<AnalysisLevel>preview-all</AnalysisLevel>
-		<RootNamespace>Goedde88.Woden.Account.Api</RootNamespace>
+		<RootNamespace>KgNet88.Woden.Account.Api</RootNamespace>
+		<UserSecretsId>7532b335-48d2-4ec1-98bd-feb263597d84</UserSecretsId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -22,7 +23,6 @@
 	<PropertyGroup>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>CS1591</NoWarn>
-		<UserSecretsId>7532b335-48d2-4ec1-98bd-feb263597d84</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>

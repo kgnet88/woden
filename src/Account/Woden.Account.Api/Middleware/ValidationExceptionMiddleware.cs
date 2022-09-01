@@ -1,4 +1,4 @@
-﻿namespace Goedde88.Woden.Account.Api.Middleware;
+﻿namespace KgNet88.Woden.Account.Api.Middleware;
 
 public class ValidationExceptionMiddleware
 {

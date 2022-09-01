@@ -18,9 +18,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notes", "notes", "{4CBAAB4D-FD49-48C6-A2DC-77D96B377229}"
 	ProjectSection(SolutionItems) = preProject
 		doc\notes\background.md = doc\notes\background.md
+		doc\notes\roadmap.md = doc\notes\roadmap.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Woden.Account.Api", "src\Account\Woden.Account.Api\Woden.Account.Api.csproj", "{831B6206-E5E0-4C02-89B1-768779E7FE79}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "diagrams", "diagrams", "{28D71A2A-2466-460D-8F58-E04D7FEA4A24}"
+	ProjectSection(SolutionItems) = preProject
+		doc\diagrams\matrix.plantuml = doc\diagrams\matrix.plantuml
+		doc\diagrams\matrix.png = doc\diagrams\matrix.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +46,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4CBAAB4D-FD49-48C6-A2DC-77D96B377229} = {16B89C77-FC14-4C62-B92F-9FEADCA09F4D}
 		{831B6206-E5E0-4C02-89B1-768779E7FE79} = {C8527D74-4C5E-4F08-B6C1-D105158B06A2}
+		{28D71A2A-2466-460D-8F58-E04D7FEA4A24} = {16B89C77-FC14-4C62-B92F-9FEADCA09F4D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7AAE31F-0D88-460E-A923-4925BA24E5C7}

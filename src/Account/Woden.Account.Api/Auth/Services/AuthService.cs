@@ -1,4 +1,4 @@
-﻿namespace Goedde88.Woden.Account.Api.Auth.Services;
+﻿namespace KgNet88.Woden.Account.Api.Auth.Services;
 
 public class AuthService : IAuthService
 {

@@ -1,4 +1,4 @@
-﻿namespace Goedde88.Woden.Account.Api.Auth.Repositories;
+﻿namespace KgNet88.Woden.Account.Api.Auth.Repositories;
 
 public class AuthRepository : IAuthRepository
 {

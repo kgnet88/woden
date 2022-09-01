@@ -1,4 +1,4 @@
-﻿namespace Goedde88.Woden.Account.Api.Auth.Endpoints;
+﻿namespace KgNet88.Woden.Account.Api.Auth.Endpoints;
 
 public class RegisterEndpoint : Endpoint<RegisterRequest>
 {

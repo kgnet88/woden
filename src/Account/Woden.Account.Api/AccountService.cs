@@ -1,4 +1,4 @@
-namespace Goedde88.Woden.Account.Api;
+namespace KgNet88.Woden.Account.Api;
 
 public static class AccountService
 {
@@ -52,6 +52,7 @@ public static class AccountService
             serializer.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
         }, shortSchemaNames: true);
 
+        _ = builder.Services.AddScoped<IAuthRepository, AuthRepository>();
         _ = builder.Services.AddScoped<IAuthService, AuthService>();
 
         var app = builder.Build();

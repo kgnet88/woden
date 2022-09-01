@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Goedde88.Woden.Account.Api.Auth.Infrastructure.Database.Migrations;
+namespace KgNet88.Woden.Account.Api.Auth.Infrastructure.Database.Migrations;
 
 public partial class InitIndentity : Migration
 {

@@ -1,4 +1,4 @@
-﻿namespace Goedde88.Woden.Account.Api.Auth.Contracts.Requests;
+﻿namespace KgNet88.Woden.Account.Api.Auth.Contracts.Requests;
 
 public class RegisterRequest
 {
