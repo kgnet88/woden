@@ -70,7 +70,7 @@ public static class AccountService
             c.Endpoints.RoutePrefix = "api";
             c.Endpoints.ShortNames = true;
 
-            c.Errors.ResponseBuilder = (failures, _) => new ValidationFailureResponse
+            c.Errors.ResponseBuilder = (failures, _) => new
             {
                 Errors = failures.ConvertAll(y => y.ErrorMessage)
             };

@@ -19,7 +19,7 @@ public class ValidationExceptionMiddleware
         {
             context.Response.StatusCode = 400;
             var messages = exception.Errors.Select(x => x.ErrorMessage).ToList();
-            var validationFailureResponse = new ValidationFailureResponse
+            object validationFailureResponse = new
             {
                 Errors = messages
             };

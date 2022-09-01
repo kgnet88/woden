@@ -16,5 +16,6 @@ public class RegisterSummary : Summary<RegisterEndpoint, RegisterRequest>
         this.RequestParam(x => x.Password, "password for login");
 
         this.Response(200, "ok response, user was successfull registered");
+        this.Response(400, "error - user could not be registered");
     }
 }
