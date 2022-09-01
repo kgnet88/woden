@@ -1,0 +1,35 @@
+@hostname = localhost
+@port = 5026
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@authToken = TOKEN_HERE
+
+POST http://{{host}}/api/auth/register
+Content-Type: {{contentType}}
+
+{
+	"Username": "peter", 
+	"Email": "peter@cando.de", 
+	"Password": "Password123!"
+}
+
+###
+
+POST http://{{host}}/api/auth/login
+Content-Type: {{contentType}}
+
+{
+	"Username": "peter", 
+	"Password": "Password123!"
+}
+
+###
+
+Delete http://{{host}}/api/auth/user/peter
+Authorization: bearer {{authToken}}
+Content-Type: {{contentType}}
+
+{
+	"Username": "peter", 
+	"Password": "Password123!"
+}

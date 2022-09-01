@@ -1,4 +1,6 @@
-﻿namespace KgNet88.Woden.Account.Api.Auth.Endpoints;
+﻿using KgNet88.Woden.Account.Application.Services;
+
+namespace KgNet88.Woden.Account.Api.Auth.Endpoints;
 
 public class LoginEndpoint : Endpoint<LoginRequest, LoginResponse>
 {

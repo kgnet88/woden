@@ -1,4 +1,6 @@
-﻿namespace KgNet88.Woden.Account.Api.Auth.Endpoints;
+﻿using KgNet88.Woden.Account.Application.Services;
+
+namespace KgNet88.Woden.Account.Api.Auth.Endpoints;
 
 public class RegisterEndpoint : Endpoint<RegisterRequest>
 {
@@ -17,7 +19,7 @@ public class RegisterEndpoint : Endpoint<RegisterRequest>
 
     public override async Task HandleAsync(RegisterRequest request, CancellationToken ct)
     {
-        await this._authService.RegisterUserAsync(request.ToUser(), request.Password);
+        await this._authService.RegisterUserAsync(request.Username, request.Email, request.Password);
 
         this.ThrowIfAnyErrors();
 

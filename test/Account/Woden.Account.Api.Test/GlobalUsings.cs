@@ -7,10 +7,9 @@ global using FastEndpoints;
 
 global using FluentAssertions;
 
-global using KgNet88.Woden.Account.Api.Auth.Contracts.Requests;
-global using KgNet88.Woden.Account.Api.Auth.Contracts.Responses;
-global using KgNet88.Woden.Account.Api.Auth.Infrastructure.Database;
-global using KgNet88.Woden.Account.Api.Auth.Services;
+global using KgNet88.Woden.Account.Contracts.Auth.Requests;
+global using KgNet88.Woden.Account.Contracts.Auth.Responses;
+global using KgNet88.Woden.Account.Infrastructure.Auth.Database;
 
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Mvc.Testing;

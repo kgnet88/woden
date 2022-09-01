@@ -1,6 +1,6 @@
 ﻿namespace KgNet88.Woden.Account.Api.Auth.Endpoints.Summaries;
 
-public class DeleteSummary : Summary<DeleteEndpoint>
+public class DeleteSummary : Summary<DeleteUserByNameEndpoint>
 {
     public DeleteSummary()
     {

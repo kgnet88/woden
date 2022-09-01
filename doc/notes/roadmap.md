@@ -12,10 +12,11 @@
   - [ ] user profile
     - [ ] create, update, delete
     - [ ] add matrix-id
-    - [ ] add blogs (rss) - simplified
   - [ ] 100% integration tests for endpoints
   - [ ] swagger documentation
-  - [ ] refactoring
+- [ ] user portal (web application)
+  - [ ] register, login or delete account
+  - [ ] update profile
 
 ### Woden - POC v0.1
 

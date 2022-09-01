@@ -1,10 +1,10 @@
 namespace KgNet88.Woden.Account.Api.Test;
 
-public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<AuthService>>
+public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<AccountService>>
 {
-    private readonly TestApplicationFactory<AuthService> _application;
+    private readonly TestApplicationFactory<AccountService> _application;
 
-    public AuthEndpointTests(TestApplicationFactory<AuthService> application)
+    public AuthEndpointTests(TestApplicationFactory<AccountService> application)
     {
         this._application = application;
     }
@@ -103,7 +103,7 @@ public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<Aut
         var message = await response.Content.ReadFromJsonAsync<ErrorResponse>();
         _ = message!.StatusCode.Should().Be(400);
         _ = message!.Message.Should().Be("One or more errors occured!");
-        _ = message!.Errors["Username"][0].Should().Be("A user peter already exists!");
+        _ = message!.Errors["username"][0].Should().Be("A user peter already exists!");
     }
 
     [Fact]
