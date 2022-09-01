@@ -2,6 +2,21 @@
 
 ## POC
 
+### Woden - POC v0.2
+
+- [ ] account service (webservice)
+  - [ ] user login
+    - [ ] register, login, delete
+    - [ ] update email and password
+    - [ ] validate email
+  - [ ] user profile
+    - [ ] create, update, delete
+    - [ ] add matrix-id
+    - [ ] add blogs (rss) - simplified
+  - [ ] 100% integration tests for endpoints
+  - [ ] swagger documentation
+  - [ ] refactoring
+
 ### Woden - POC v0.1
 
 - [x] account service (webservice)
