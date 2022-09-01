@@ -17,7 +17,7 @@ public class RegisterEndpoint : Endpoint<RegisterRequest>
 
     public override async Task HandleAsync(RegisterRequest request, CancellationToken ct)
     {
-        await this._authService.RegisterUserAsync(request.ToUser());
+        await this._authService.RegisterUserAsync(request.ToUser(), request.Password);
 
         this.ThrowIfAnyErrors();
 

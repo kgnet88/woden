@@ -70,7 +70,7 @@ public class AuthRepository : IAuthRepository
             string message = $"A user {user.Username} already exists!";
             throw new ValidationException(message, new[]
             {
-                new ValidationFailure(nameof(user), message)
+                new ValidationFailure(nameof(user.Username), message)
             });
         }
 
@@ -87,7 +87,7 @@ public class AuthRepository : IAuthRepository
             string message = $"A user with {user.Username} cannot be registered!";
             throw new ValidationException(message, new[]
             {
-                new ValidationFailure(nameof(user), message)
+                new ValidationFailure(nameof(user.Username), message)
             });
         }
     }

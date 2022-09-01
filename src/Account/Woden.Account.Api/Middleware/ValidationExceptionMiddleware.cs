@@ -17,13 +17,7 @@ public class ValidationExceptionMiddleware
         }
         catch (ValidationException exception)
         {
-            context.Response.StatusCode = 400;
-            var messages = exception.Errors.Select(x => x.ErrorMessage).ToList();
-            object validationFailureResponse = new
-            {
-                Errors = messages
-            };
-            await context.Response.WriteAsJsonAsync(validationFailureResponse);
+            await context.Response.SendErrorsAsync(exception.Errors.ToList());
         }
     }
 }
