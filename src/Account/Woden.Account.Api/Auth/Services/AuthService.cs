@@ -30,11 +30,6 @@ public class AuthService : IAuthService
         await this._authRepository.RegisterUserAsync(user.ToUserDto(), password);
     }
 
-    public Task RegisterUserAsync(User user)
-    {
-        throw new NotImplementedException();
-    }
-
     private string GenerateToken(string username)
     {
         var validTo = SystemClock.Instance.GetCurrentInstant() + Duration.FromMinutes(20);

@@ -8,12 +8,11 @@ public static class AccountService
 
         // Add services to the container.
 
-        _ = builder.Services.AddDbContext<AuthDbContext>(
-    options =>
-    {
-        _ = options.UseNpgsql(builder.Configuration.GetConnectionString("WodenDb")!);
-        _ = options.UseLazyLoadingProxies();
-    });
+        _ = builder.Services.AddDbContext<AuthDbContext>(options =>
+            {
+                _ = options.UseNpgsql(builder.Configuration.GetConnectionString("WodenDb")!);
+                _ = options.UseLazyLoadingProxies();
+            });
 
         _ = builder.Services.AddIdentity<DbUser, DbRole>()
                 .AddEntityFrameworkStores<AuthDbContext>()
@@ -70,11 +69,6 @@ public static class AccountService
             _ = c.Serializer.Options.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
             c.Endpoints.RoutePrefix = "api";
             c.Endpoints.ShortNames = true;
-
-            c.Errors.ResponseBuilder = (failures, _) => new
-            {
-                Errors = failures.ConvertAll(y => y.ErrorMessage)
-            };
         });
 
         _ = app.UseOpenApi();

@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "diagrams", "diagrams", "{28
 		doc\diagrams\matrix.png = doc\diagrams\matrix.png
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Woden.Account.Api.Test", "test\Account\Woden.Account.Api.Test\Woden.Account.Api.Test.csproj", "{DB3F2448-0730-4223-BFBC-C2227D58A550}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{831B6206-E5E0-4C02-89B1-768779E7FE79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{831B6206-E5E0-4C02-89B1-768779E7FE79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{831B6206-E5E0-4C02-89B1-768779E7FE79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB3F2448-0730-4223-BFBC-C2227D58A550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB3F2448-0730-4223-BFBC-C2227D58A550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB3F2448-0730-4223-BFBC-C2227D58A550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB3F2448-0730-4223-BFBC-C2227D58A550}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +53,7 @@ Global
 		{4CBAAB4D-FD49-48C6-A2DC-77D96B377229} = {16B89C77-FC14-4C62-B92F-9FEADCA09F4D}
 		{831B6206-E5E0-4C02-89B1-768779E7FE79} = {C8527D74-4C5E-4F08-B6C1-D105158B06A2}
 		{28D71A2A-2466-460D-8F58-E04D7FEA4A24} = {16B89C77-FC14-4C62-B92F-9FEADCA09F4D}
+		{DB3F2448-0730-4223-BFBC-C2227D58A550} = {C8527D74-4C5E-4F08-B6C1-D105158B06A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7AAE31F-0D88-460E-A923-4925BA24E5C7}

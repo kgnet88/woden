@@ -12,7 +12,6 @@ public class DeleteEndpoint : EndpointWithoutRequest
     public override void Configure()
     {
         this.Delete("auth/user/{Username}");
-        this.Roles("Admin");
     }
 
     public override async Task HandleAsync(CancellationToken ct)
