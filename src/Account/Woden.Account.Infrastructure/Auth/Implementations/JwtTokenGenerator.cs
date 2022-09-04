@@ -10,16 +10,16 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         this._dateTimeProvider = dateTimeProvider;
     }
 
-    public string GenerateToken(Guid userId, string username, string email)
+    public string GenerateToken(User user)
     {
         var expires = this._dateTimeProvider.UtcNow + Duration.FromMinutes(this._jwtSettings.ExpiryMinutes);
 
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, email),
-            new Claim("Username", username)
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim("Username", user.Username)
         };
 
         return JWTBearer.CreateToken(

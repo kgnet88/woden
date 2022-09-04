@@ -22,7 +22,7 @@ public class AuthService : IAuthService
     {
         var user = await this._authRepository.LoginUserAsync(username, password);
 
-        return this._jwtTokenGenerator.GenerateToken(user.Id, user.Username, user.Email);
+        return this._jwtTokenGenerator.GenerateToken(user);
     }
 
     public async Task RegisterUserAsync(string username, string email, string password)

@@ -1,3 +1,5 @@
+using KgNet88.Woden.Account.Api.Middleware;
+
 namespace KgNet88.Woden.Account.Api.Test;
 
 public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<AccountService>>
@@ -50,10 +52,11 @@ public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<Acc
             });
 
         _ = response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        _ = response.Content.Headers.ContentType!.MediaType.Should().Be("application/problem+json");
 
-        var message = await response.Content.ReadFromJsonAsync<ErrorResponse>();
-        _ = message!.StatusCode.Should().Be(400);
-        _ = message!.Message.Should().Be("One or more errors occured!");
+        var message = await response.Content.ReadFromJsonAsync<MyValidationProblemDetails>();
+        _ = message!.Status.Should().Be(400);
+        _ = message!.Detail.Should().Be("One or more errors occured!");
         _ = message!.Errors["Username"][0].Should().Be("username is too short!");
 
         response = await client.PostAsJsonAsync(
@@ -66,10 +69,11 @@ public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<Acc
             });
 
         _ = response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        _ = response.Content.Headers.ContentType!.MediaType.Should().Be("application/problem+json");
 
-        message = await response.Content.ReadFromJsonAsync<ErrorResponse>();
-        _ = message!.StatusCode.Should().Be(400);
-        _ = message!.Message.Should().Be("One or more errors occured!");
+        message = await response.Content.ReadFromJsonAsync<MyValidationProblemDetails>();
+        _ = message!.Status.Should().Be(400);
+        _ = message!.Detail.Should().Be("One or more errors occured!");
         _ = message!.Errors["Username"][0].Should().Be("username should not be empty!");
     }
 
@@ -99,10 +103,11 @@ public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<Acc
             });
 
         _ = response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        _ = response.Content.Headers.ContentType!.MediaType.Should().Be("application/problem+json");
 
-        var message = await response.Content.ReadFromJsonAsync<ErrorResponse>();
-        _ = message!.StatusCode.Should().Be(400);
-        _ = message!.Message.Should().Be("One or more errors occured!");
+        var message = await response.Content.ReadFromJsonAsync<MyValidationProblemDetails>();
+        _ = message!.Status.Should().Be(400);
+        _ = message!.Detail.Should().Be("One or more errors occured!");
         _ = message!.Errors["username"][0].Should().Be("A user peter already exists!");
     }
 
