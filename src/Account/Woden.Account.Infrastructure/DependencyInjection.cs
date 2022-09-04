@@ -1,4 +1,5 @@
 ﻿namespace KgNet88.Woden.Account.Infrastructure;
+
 public static class DependencyInjection
 {
     public static IServiceCollection RegisterInfrastructureServices(this IServiceCollection services, ConfigurationManager configuration)
@@ -8,11 +9,6 @@ public static class DependencyInjection
         _ = services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
         _ = services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
-        return services;
-    }
-
-    public static IServiceCollection? RegisterAuthentication(this IServiceCollection services, ConfigurationManager configuration)
-    {
         _ = services.AddDbContext<AuthDbContext>(options =>
         {
             _ = options.UseNpgsql(configuration.GetConnectionString("WodenDb")!);
@@ -43,7 +39,7 @@ public static class DependencyInjection
             options.User.RequireUniqueEmail = false;
         });
 
-        _ = services.AddAuthenticationJWTBearer(configuration["JwtToken:Secret"] ?? "TokenSigningKeyAVeryDarkSecretString");
+        _ = services.AddAuthenticationJWTBearer(configuration["JwtSettings:Secret"] ?? "TokenSigningKeyAVeryDarkSecretString");
 
         _ = services.AddScoped<IAuthRepository, AuthRepository>();
 

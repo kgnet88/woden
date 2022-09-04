@@ -12,8 +12,6 @@ public class AccountService
         _ = builder.Services.RegisterApplicationServices();
         _ = builder.Services.RegisterInfrastructureServices(builder.Configuration);
 
-        _ = builder.Services.RegisterAuthentication(builder.Configuration);
-
         _ = builder.Services.AddFastEndpoints();
 
         _ = builder.Services.AddSwaggerDoc(settings =>

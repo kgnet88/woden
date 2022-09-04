@@ -29,6 +29,10 @@
 		<PackageReference Include="FastEndpoints.Swagger" Version="5.0.0" />
 		<PackageReference Include="NodaTime.Serialization.SystemTextJson" Version="1.0.0" />
 		<PackageReference Include="ValueOf" Version="2.0.31" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>

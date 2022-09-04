@@ -9,7 +9,7 @@ global using FluentAssertions;
 
 global using KgNet88.Woden.Account.Contracts.Auth.Requests;
 global using KgNet88.Woden.Account.Contracts.Auth.Responses;
-global using KgNet88.Woden.Account.Infrastructure.Auth.Database;
+global using KgNet88.Woden.Account.Infrastructure.Auth.Persistence.Database;
 
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Mvc.Testing;
