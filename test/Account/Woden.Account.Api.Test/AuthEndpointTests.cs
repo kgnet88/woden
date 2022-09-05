@@ -1,4 +1,6 @@
-using KgNet88.Woden.Account.Api.Middleware;
+using KgNet88.Woden.Account.Domain.Auth.Errors;
+
+using Microsoft.AspNetCore.Mvc;
 
 namespace KgNet88.Woden.Account.Api.Test;
 
@@ -42,7 +44,7 @@ public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<Acc
     {
         var client = await this.InitTestAsync();
 
-        var response = await client.PostAsJsonAsync(
+        /*var response = await client.PostAsJsonAsync(
             "api/auth/register",
             new RegisterRequest()
             {
@@ -54,12 +56,12 @@ public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<Acc
         _ = response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         _ = response.Content.Headers.ContentType!.MediaType.Should().Be("application/problem+json");
 
-        var message = await response.Content.ReadFromJsonAsync<MyValidationProblemDetails>();
+        var message = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
         _ = message!.Status.Should().Be(400);
         _ = message!.Detail.Should().Be("One or more errors occured!");
-        _ = message!.Errors["Username"][0].Should().Be("username is too short!");
+        _ = message!.Errors["Username"][0].Should().Be("username is too short!");*/
 
-        response = await client.PostAsJsonAsync(
+        var response = await client.PostAsJsonAsync(
             "api/auth/register",
             new RegisterRequest()
             {
@@ -71,10 +73,10 @@ public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<Acc
         _ = response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         _ = response.Content.Headers.ContentType!.MediaType.Should().Be("application/problem+json");
 
-        message = await response.Content.ReadFromJsonAsync<MyValidationProblemDetails>();
+        var message = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
         _ = message!.Status.Should().Be(400);
-        _ = message!.Detail.Should().Be("One or more errors occured!");
-        _ = message!.Errors["Username"][0].Should().Be("username should not be empty!");
+        _ = message!.Title.Should().Be("One or more validation errors occurred.");
+        _ = message!.Errors[Errors.User.UsernameEmpty.Code][0].Should().Be(Errors.User.UsernameEmpty.Description);
     }
 
     [Fact]
@@ -105,10 +107,10 @@ public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<Acc
         _ = response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         _ = response.Content.Headers.ContentType!.MediaType.Should().Be("application/problem+json");
 
-        var message = await response.Content.ReadFromJsonAsync<MyValidationProblemDetails>();
+        var message = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
         _ = message!.Status.Should().Be(400);
-        _ = message!.Detail.Should().Be("One or more errors occured!");
-        _ = message!.Errors["username"][0].Should().Be("A user peter already exists!");
+        _ = message!.Title.Should().Be("One or more validation errors occurred.");
+        _ = message!.Errors[Errors.User.UsernameAlreadyExists.Code][0].Should().Be(Errors.User.UsernameAlreadyExists.Description);
     }
 
     [Fact]

@@ -1,4 +1,8 @@
-﻿namespace KgNet88.Woden.Account.Infrastructure.Auth.Persistence;
+﻿using ErrorOr;
+
+using KgNet88.Woden.Account.Domain.Auth.Errors;
+
+namespace KgNet88.Woden.Account.Infrastructure.Auth.Persistence;
 
 public class AuthRepository : IAuthRepository
 {
@@ -9,98 +13,87 @@ public class AuthRepository : IAuthRepository
         this._userManager = userManager;
     }
 
-    public async Task<bool> DeleteUserByNameAsync(string username)
+    public async Task<ErrorOr<Deleted>> DeleteUserByNameAsync(string username)
     {
         var user = await this._userManager.FindByNameAsync(username);
 
-        if (user is null)
+        if (user == null)
         {
-            string message = $"A user {username} does not exist!";
-            throw new ValidationException(message, new[]
-            {
-                new ValidationFailure(nameof(username), message)
-            });
+            return Errors.User.DoesNotExist;
         }
 
-        return (await this._userManager.DeleteAsync(user)).Succeeded;
+        var result = await this._userManager.DeleteAsync(user);
+
+        return result.Succeeded ? Result.Deleted : Errors.Database.DeleteFailed;
     }
 
-    public async Task<User?> GetUserByNameAsync(string username)
+    public async Task<ErrorOr<User>> GetUserByNameAsync(string username)
     {
         var dbUser = await this._userManager.FindByNameAsync(username);
 
-        return dbUser is null
-            ? null
-            : new User
+        return dbUser == null
+            ? (ErrorOr<User>)Errors.User.DoesNotExist
+            : (ErrorOr<User>)new User
             {
-                Id = dbUser.Id,
+                Username = dbUser.UserName!,
                 Email = dbUser.Email!,
-                Username = dbUser.UserName!
+                Id = dbUser.Id
             };
     }
 
-    public async Task<User> LoginUserAsync(string username, string password)
+    public async Task<ErrorOr<User>> LoginUserAsync(string username, string password)
     {
         var user = await this._userManager.FindByNameAsync(username);
 
-        if (user is null)
+        if (user == null)
         {
-            string message = $"A user {username} does not exist!";
-            throw new ValidationException(message, new[]
-            {
-                new ValidationFailure(nameof(username), message)
-            });
+            return Errors.User.DoesNotExist;
         }
 
         bool result = await this._userManager.CheckPasswordAsync(
             user,
             password);
 
-        if (!result)
-        {
-            const string message = "username or password are wrong!";
-            throw new ValidationException(message, new[]
+        return !result
+            ? (ErrorOr<User>)Errors.User.InvalidCredentials
+            : (ErrorOr<User>)new User
             {
-                new ValidationFailure(nameof(username), message)
-            });
-        }
-
-        return new User
-        {
-            Id = user.Id,
-            Username = user.UserName!,
-            Email = user.Email!
-        };
+                Id = user.Id,
+                Username = user.UserName!,
+                Email = user.Email!
+            };
     }
 
-    public async Task RegisterUserAsync(string username, string email, string password)
+    public async Task<ErrorOr<Created>> RegisterUserAsync(string username, string email, string password)
     {
+        if (string.IsNullOrEmpty(username))
+        {
+            return Errors.User.UsernameEmpty;
+        }
+
         var dbUser = await this._userManager.FindByNameAsync(username);
 
         if (dbUser is not null)
         {
-            string message = $"A user {username} already exists!";
-            throw new ValidationException(message, new[]
-            {
-                new ValidationFailure(nameof(username), message)
-            });
+            return Errors.User.UsernameAlreadyExists;
+        }
+
+        dbUser = await this._userManager.FindByEmailAsync(email);
+
+        if (dbUser is not null)
+        {
+            return Errors.User.EmailAlreadyExists;
         }
 
         var newUser = new DbUser()
         {
+            Id = Guid.NewGuid(),
             UserName = username,
             Email = email
         };
 
         var result = await this._userManager.CreateAsync(newUser, password);
 
-        if (!result.Succeeded)
-        {
-            string message = $"A user with {username} cannot be registered!";
-            throw new ValidationException(message, new[]
-            {
-                new ValidationFailure(nameof(username), message)
-            });
-        }
+        return !result.Succeeded ? (ErrorOr<Created>)Errors.Database.RegisterFailed : Result.Created;
     }
 }

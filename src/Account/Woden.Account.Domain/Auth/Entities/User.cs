@@ -1,4 +1,4 @@
-﻿namespace KgNet88.Woden.Account.Domain.Entities.Auth;
+﻿namespace KgNet88.Woden.Account.Domain.Auth.Entities;
 
 public class User
 {

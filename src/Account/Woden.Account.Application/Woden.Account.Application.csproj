@@ -25,6 +25,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="FluentValidation" Version="11.2.0" />
+	  <PackageReference Include="MediatR" Version="10.0.1" />
+	  <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
 	  <PackageReference Include="NodaTime" Version="3.1.2" />
@@ -32,6 +35,10 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Woden.Account.Domain\Woden.Account.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Auth\Validation\" />
 	</ItemGroup>
 
 </Project>

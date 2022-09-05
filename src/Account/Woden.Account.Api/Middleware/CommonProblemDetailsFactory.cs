@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics;
 
-using FluentValidation.Results;
-
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 
 namespace KgNet88.Woden.Account.Api.Middleware;
-public class CommonProblemDetailsFactory : AbstractProblemDetailsFactory
+public class CommonProblemDetailsFactory : ProblemDetailsFactory
 {
     private readonly ApiBehaviorOptions _options;
 
@@ -15,35 +15,61 @@ public class CommonProblemDetailsFactory : AbstractProblemDetailsFactory
         this._options = options?.Value ?? throw new ArgumentNullException(nameof(options));
     }
 
-    public override MyValidationProblemDetails CreateValidationProblemDetails(
+    public override ProblemDetails CreateProblemDetails(
         HttpContext httpContext,
-        List<ValidationFailure> failures,
-        int statusCode = 400,
+        int? statusCode = null,
+        string? title = null,
+        string? type = null,
+        string? detail = null,
         string? instance = null)
     {
-        var problemDetails = new MyValidationProblemDetails
+        statusCode ??= 500;
+
+        var problemDetails = new ProblemDetails
         {
             Status = statusCode,
-            Title = "Validation Error",
-
-            Detail = "One or more errors occured!",
-            Instance = instance ?? httpContext.Request.Path,
-            Errors = new()
+            Title = title,
+            Type = type,
+            Detail = detail,
+            Instance = instance,
         };
 
-        foreach (var failure in failures)
+        this.ApplyProblemDetailsDefaults(httpContext, problemDetails, statusCode.Value);
+
+        return problemDetails;
+    }
+
+    public override ValidationProblemDetails CreateValidationProblemDetails(
+        HttpContext httpContext,
+        ModelStateDictionary modelStateDictionary,
+        int? statusCode = null,
+        string? title = null,
+        string? type = null,
+        string? detail = null,
+        string? instance = null)
+    {
+        if (modelStateDictionary == null)
         {
-            if (problemDetails.Errors.TryGetValue(failure.PropertyName, out var errorList))
-            {
-                errorList!.Add(failure.ErrorMessage);
-            }
-            else
-            {
-                problemDetails.Errors.Add(failure.PropertyName, new List<string> { failure.ErrorMessage });
-            }
+            throw new ArgumentNullException(nameof(modelStateDictionary));
         }
 
-        this.ApplyProblemDetailsDefaults(httpContext, problemDetails, statusCode);
+        statusCode ??= 400;
+
+        var problemDetails = new ValidationProblemDetails(modelStateDictionary)
+        {
+            Status = statusCode,
+            Type = type,
+            Detail = detail,
+            Instance = instance,
+        };
+
+        if (title != null)
+        {
+            // For validation problem details, don't overwrite the default title with null.
+            problemDetails.Title = title;
+        }
+
+        this.ApplyProblemDetailsDefaults(httpContext, problemDetails, statusCode.Value);
 
         return problemDetails;
     }

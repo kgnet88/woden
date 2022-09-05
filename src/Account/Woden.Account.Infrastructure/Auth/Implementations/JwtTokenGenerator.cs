@@ -1,4 +1,5 @@
 ﻿namespace KgNet88.Woden.Account.Infrastructure.Auth.Implementations;
+
 public class JwtTokenGenerator : IJwtTokenGenerator
 {
     private readonly JwtSettings _jwtSettings;
@@ -10,7 +11,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         this._dateTimeProvider = dateTimeProvider;
     }
 
-    public string GenerateToken(User user)
+    public (string Token, ZonedDateTime Expires) GenerateToken(User user)
     {
         var expires = this._dateTimeProvider.UtcNow + Duration.FromMinutes(this._jwtSettings.ExpiryMinutes);
 
@@ -22,11 +23,13 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             new Claim("Username", user.Username)
         };
 
-        return JWTBearer.CreateToken(
+        string token = JWTBearer.CreateToken(
                signingKey: this._jwtSettings.Secret,
                issuer: this._jwtSettings.Issuer,
                audience: this._jwtSettings.Audience,
                expireAt: expires.ToDateTimeUtc(),
                claims: claims);
+
+        return (token, expires);
     }
 }

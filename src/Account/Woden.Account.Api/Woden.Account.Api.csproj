@@ -41,4 +41,9 @@
 		<ProjectReference Include="..\Woden.Account.Infrastructure\Woden.Account.Infrastructure.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Auth\Endpoints\Errors\" />
+	  <Folder Include="Auth\Endpoints\Validation\" />
+	</ItemGroup>
+
 </Project>
