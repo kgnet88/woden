@@ -1,12 +1,16 @@
 ﻿namespace KgNet88.Woden.Account.Api.Auth.Endpoints;
 
-public class RegisterEndpoint : Endpoint<RegisterRequest>
+public class RegisterEndpoint : Endpoint<RegisterRequest, ErrorOr<Created>>
 {
-    private readonly IAuthService _authService;
+    private readonly ISender _mediator;
+    private readonly ProblemDetailsFactory _problemDetailsFactory;
+    private readonly MapsterMapper.IMapper _mapper;
 
-    public RegisterEndpoint(IAuthService authService)
+    public RegisterEndpoint(ISender mediator, ProblemDetailsFactory problemDetailsFactory, MapsterMapper.IMapper mapper)
     {
-        this._authService = authService;
+        this._mediator = mediator;
+        this._problemDetailsFactory = problemDetailsFactory;
+        this._mapper = mapper;
     }
 
     public override void Configure()
@@ -17,9 +21,15 @@ public class RegisterEndpoint : Endpoint<RegisterRequest>
 
     public override async Task HandleAsync(RegisterRequest request, CancellationToken ct)
     {
-        await this._authService.RegisterUserAsync(request.ToUser(), request.Password);
+        var command = this._mapper.Map<RegisterCommand>(request);
 
-        this.ThrowIfAnyErrors();
+        var result = await this._mediator.Send(command, ct);
+
+        if (result.IsError)
+        {
+            await result.SendProblemDetailsAsync(this.HttpContext, this._problemDetailsFactory);
+            return;
+        }
 
         await this.SendOkAsync(ct);
     }

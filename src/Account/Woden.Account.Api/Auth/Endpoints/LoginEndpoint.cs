@@ -2,11 +2,15 @@
 
 public class LoginEndpoint : Endpoint<LoginRequest, LoginResponse>
 {
-    private readonly IAuthService _authService;
+    private readonly ISender _mediator;
+    private readonly ProblemDetailsFactory _problemDetailsFactory;
+    private readonly MapsterMapper.IMapper _mapper;
 
-    public LoginEndpoint(IAuthService authService)
+    public LoginEndpoint(ISender mediator, ProblemDetailsFactory problemDetailsFactory, MapsterMapper.IMapper mapper)
     {
-        this._authService = authService;
+        this._mediator = mediator;
+        this._problemDetailsFactory = problemDetailsFactory;
+        this._mapper = mapper;
     }
 
     public override void Configure()
@@ -17,16 +21,17 @@ public class LoginEndpoint : Endpoint<LoginRequest, LoginResponse>
 
     public override async Task HandleAsync(LoginRequest request, CancellationToken ct)
     {
-        string jwtToken = await this._authService.LoginUserAsync(request.Username, request.Password);
+        var query = this._mapper.Map<LoginQuery>(request);
+        var result = await this._mediator.Send(query, ct);
 
-        var validTo = SystemClock.Instance.GetCurrentInstant() + Duration.FromMinutes(20);
-
-        var response = new LoginResponse()
+        if (result.IsError)
         {
-            AccessToken = jwtToken,
-            ValidTo = validTo
-        };
+            await result.SendProblemDetailsAsync(this.HttpContext, this._problemDetailsFactory);
+            return;
+        }
 
-        await this.SendAsync(response, 200, ct);
+        var response = this._mapper.Map<LoginResponse>(result.Value);
+
+        await this.SendOkAsync(response!, ct);
     }
 }

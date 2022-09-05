@@ -26,22 +26,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FastEndpoints" Version="5.0.0" />
-		<PackageReference Include="FastEndpoints.Security" Version="5.0.0" />
 		<PackageReference Include="FastEndpoints.Swagger" Version="5.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
+		<PackageReference Include="NodaTime.Serialization.SystemTextJson" Version="1.0.0" />
+		<PackageReference Include="ValueOf" Version="2.0.31" />
+		<PackageReference Include="Mapster" Version="7.3.0" />
+		<PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.8" />
-		<PackageReference Include="NodaTime" Version="3.1.2" />
-		<PackageReference Include="NodaTime.Serialization.SystemTextJson" Version="1.0.0" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.6" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.NodaTime" Version="6.0.6" />
-		<PackageReference Include="ValueOf" Version="2.0.31" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Woden.Account.Application\Woden.Account.Application.csproj" />
+		<ProjectReference Include="..\Woden.Account.Contracts\Woden.Account.Contracts.csproj" />
+		<ProjectReference Include="..\Woden.Account.Infrastructure\Woden.Account.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

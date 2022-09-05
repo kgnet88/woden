@@ -1,4 +1,5 @@
 ﻿namespace KgNet88.Woden.Account.Api.Test;
+
 public sealed class TestApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
