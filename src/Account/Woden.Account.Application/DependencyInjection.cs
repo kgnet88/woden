@@ -1,15 +1,8 @@
-﻿using System.Reflection;
+﻿namespace KgNet88.Woden.Account.Application;
 
-using FluentValidation;
-
-using KgNet88.Woden.Account.Application.Common.Behaviors;
-
-using MediatR;
-
-namespace KgNet88.Woden.Account.Application;
 public static class DependencyInjection
 {
-    public static IServiceCollection RegisterApplicationServices(this IServiceCollection services)
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         _ = services.AddMediatR(typeof(DependencyInjection).Assembly);
 

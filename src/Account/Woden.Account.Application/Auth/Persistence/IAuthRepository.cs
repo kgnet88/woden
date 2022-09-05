@@ -1,6 +1,4 @@
-﻿using ErrorOr;
-
-namespace KgNet88.Woden.Account.Application.Auth.Persistence;
+﻿namespace KgNet88.Woden.Account.Application.Auth.Persistence;
 
 public interface IAuthRepository
 {

@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace KgNet88.Woden.Account.Application.Auth.Commands.DeleteUserByName;
+﻿namespace KgNet88.Woden.Account.Application.Auth.Commands.DeleteUserByName;
 
 public class DeleteUserByNameCommandValidator : AbstractValidator<DeleteUserByNameCommand>
 {

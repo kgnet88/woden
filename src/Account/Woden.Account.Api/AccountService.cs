@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-
 namespace KgNet88.Woden.Account.Api;
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Roslynator", "RCS1102:Make class static.", Justification = "Reflection")]
@@ -11,10 +9,10 @@ public class AccountService
 
         // Add services to the container.
 
-        _ = builder.Services.RegisterApplicationServices();
-        _ = builder.Services.RegisterInfrastructureServices(builder.Configuration);
-
-        _ = builder.Services.AddSingleton<ProblemDetailsFactory, CommonProblemDetailsFactory>();
+        _ = builder.Services
+            .AddPresentation()
+            .AddApplication()
+            .AddInfrastructure(builder.Configuration);
 
         _ = builder.Services.AddFastEndpoints();
 

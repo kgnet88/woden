@@ -1,7 +1,3 @@
-using KgNet88.Woden.Account.Domain.Auth.Errors;
-
-using Microsoft.AspNetCore.Mvc;
-
 namespace KgNet88.Woden.Account.Api.Test;
 
 public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<AccountService>>

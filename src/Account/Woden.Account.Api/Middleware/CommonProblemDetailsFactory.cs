@@ -1,11 +1,5 @@
-﻿using System.Diagnostics;
+﻿namespace KgNet88.Woden.Account.Api.Middleware;
 
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Options;
-
-namespace KgNet88.Woden.Account.Api.Middleware;
 public class CommonProblemDetailsFactory : ProblemDetailsFactory
 {
     private readonly ApiBehaviorOptions _options;

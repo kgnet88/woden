@@ -1,8 +1,4 @@
-﻿using ErrorOr;
-
-using MediatR;
-
-namespace KgNet88.Woden.Account.Application.Auth.Queries.Login;
+﻿namespace KgNet88.Woden.Account.Application.Auth.Queries.Login;
 
 public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<LoginResult>>
 {

@@ -1,15 +1,15 @@
 ﻿global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 
-global using FastEndpoints.Security;
+global using ErrorOr;
 
-global using FluentValidation;
-global using FluentValidation.Results;
+global using FastEndpoints.Security;
 
 global using KgNet88.Woden.Account.Application.Auth.Interfaces;
 global using KgNet88.Woden.Account.Application.Auth.Persistence;
 global using KgNet88.Woden.Account.Application.Common.Interfaces;
 global using KgNet88.Woden.Account.Domain.Auth.Entities;
+global using KgNet88.Woden.Account.Domain.Auth.Errors;
 global using KgNet88.Woden.Account.Infrastructure.Auth.Implementations;
 global using KgNet88.Woden.Account.Infrastructure.Auth.Persistence;
 global using KgNet88.Woden.Account.Infrastructure.Auth.Persistence.Database;

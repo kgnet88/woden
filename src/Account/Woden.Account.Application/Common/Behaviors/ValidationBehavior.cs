@@ -1,10 +1,4 @@
-﻿using ErrorOr;
-
-using FluentValidation;
-
-using MediatR;
-
-namespace KgNet88.Woden.Account.Application.Common.Behaviors;
+﻿namespace KgNet88.Woden.Account.Application.Common.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse> :
     IPipelineBehavior<TRequest, TResponse>

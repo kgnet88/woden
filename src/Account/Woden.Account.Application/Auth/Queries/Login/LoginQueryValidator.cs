@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace KgNet88.Woden.Account.Application.Auth.Queries.Login;
+﻿namespace KgNet88.Woden.Account.Application.Auth.Queries.Login;
 
 public class LoginQueryValidator : AbstractValidator<LoginQuery>
 {

@@ -2,12 +2,22 @@
 
 public static class DependencyInjection
 {
-    public static IServiceCollection RegisterInfrastructureServices(this IServiceCollection services, ConfigurationManager configuration)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
     {
-        _ = services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+        _ = services.AddAuth(configuration);
 
-        _ = services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+        _ = services.AddScoped<IAuthRepository, AuthRepository>();
         _ = services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+
+        return services;
+    }
+    public static IServiceCollection AddAuth(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        var jwtSettings = new JwtSettings();
+        configuration.Bind(JwtSettings.SectionName, jwtSettings);
+
+        _ = services.AddSingleton(Options.Create(jwtSettings));
+        _ = services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
         _ = services.AddDbContext<AuthDbContext>(options =>
         {
@@ -39,9 +49,7 @@ public static class DependencyInjection
             options.User.RequireUniqueEmail = false;
         });
 
-        _ = services.AddAuthenticationJWTBearer(configuration["JwtSettings:Secret"] ?? "TokenSigningKeyAVeryDarkSecretString");
-
-        _ = services.AddScoped<IAuthRepository, AuthRepository>();
+        _ = services.AddAuthenticationJWTBearer(jwtSettings.Secret ?? "TokenSigningKeyAVeryDarkSecretString");
 
         return services;
     }

@@ -1,8 +1,4 @@
-﻿using ErrorOr;
-
-using KgNet88.Woden.Account.Domain.Auth.Errors;
-
-namespace KgNet88.Woden.Account.Infrastructure.Auth.Persistence;
+﻿namespace KgNet88.Woden.Account.Infrastructure.Auth.Persistence;
 
 public class AuthRepository : IAuthRepository
 {

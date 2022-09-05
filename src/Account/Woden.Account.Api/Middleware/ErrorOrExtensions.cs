@@ -1,9 +1,4 @@
-﻿using ErrorOr;
-
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-
-namespace KgNet88.Woden.Account.Api.Middleware;
+﻿namespace KgNet88.Woden.Account.Api.Middleware;
 
 public static class ErrorOrExtensions
 {

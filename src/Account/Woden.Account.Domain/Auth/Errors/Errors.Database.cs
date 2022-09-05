@@ -1,4 +1,5 @@
 ﻿namespace KgNet88.Woden.Account.Domain.Auth.Errors;
+
 public static partial class Errors
 {
     public static class Database

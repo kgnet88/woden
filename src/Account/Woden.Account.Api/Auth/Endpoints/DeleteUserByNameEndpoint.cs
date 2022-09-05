@@ -1,10 +1,4 @@
-﻿using KgNet88.Woden.Account.Application.Auth.Commands.DeleteUserByName;
-
-using MediatR;
-
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-
-namespace KgNet88.Woden.Account.Api.Auth.Endpoints;
+﻿namespace KgNet88.Woden.Account.Api.Auth.Endpoints;
 
 public class DeleteUserByNameEndpoint : EndpointWithoutRequest
 {

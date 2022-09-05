@@ -1,8 +1,4 @@
-﻿using ErrorOr;
-
-using MediatR;
-
-namespace KgNet88.Woden.Account.Application.Auth.Commands.Register;
+﻿namespace KgNet88.Woden.Account.Application.Auth.Commands.Register;
 
 public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<Created>>
 {

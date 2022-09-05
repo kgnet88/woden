@@ -38,8 +38,4 @@
 	  <ProjectReference Include="..\Woden.Account.Domain\Woden.Account.Domain.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Auth\Validation\" />
-	</ItemGroup>
-
 </Project>
