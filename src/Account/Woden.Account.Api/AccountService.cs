@@ -32,8 +32,6 @@ public class AccountService
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
-        _ = app.UseMiddleware<ErrorMiddleware>();
-
         _ = app.UseAuthentication();
         _ = app.UseAuthorization();
 

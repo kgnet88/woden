@@ -5,7 +5,6 @@ using KgNet88.Woden.Account.Application.Auth.Commands.Register;
 using MediatR;
 
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace KgNet88.Woden.Account.Api.Auth.Endpoints;
 
@@ -39,23 +38,10 @@ public class RegisterEndpoint : Endpoint<RegisterRequest, ErrorOr<Created>>
 
         if (result.IsError)
         {
-            var modelStateDictionary = new ModelStateDictionary();
-
-            foreach (var failure in result.Errors)
-            {
-                modelStateDictionary.AddModelError(failure.Code, failure.Description);
-            }
-
-            var problemDetails = this._problemDetailsFactory.CreateValidationProblemDetails(this.HttpContext, modelStateDictionary);
-
-            this.HttpContext.Response.StatusCode = (int)problemDetails.Status!;
-
-            await this.HttpContext.Response.WriteAsJsonAsync(problemDetails, options: null, contentType: "application/problem+json");
-
+            await result.SendProblemDetailsAsync(this.HttpContext, this._problemDetailsFactory);
             return;
         }
 
         await this.SendOkAsync(ct);
-
     }
 }

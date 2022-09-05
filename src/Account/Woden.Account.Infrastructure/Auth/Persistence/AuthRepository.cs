@@ -71,6 +71,11 @@ public class AuthRepository : IAuthRepository
             return Errors.User.UsernameEmpty;
         }
 
+        if (string.IsNullOrEmpty(email))
+        {
+            return Errors.User.EmailEmpty;
+        }
+
         var dbUser = await this._userManager.FindByNameAsync(username);
 
         if (dbUser is not null)

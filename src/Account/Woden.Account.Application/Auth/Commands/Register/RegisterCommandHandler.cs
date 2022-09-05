@@ -21,6 +21,5 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<C
     command.Username,
     command.Email,
     command.Password);
-
     }
 }

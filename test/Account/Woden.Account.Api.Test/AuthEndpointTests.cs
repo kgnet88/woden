@@ -40,26 +40,9 @@ public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<Acc
     }
 
     [Fact]
-    public async Task POST_register_user_bad_username_Fail_400_Async()
+    public async Task POST_register_user_validation_Fail_400_Async()
     {
         var client = await this.InitTestAsync();
-
-        /*var response = await client.PostAsJsonAsync(
-            "api/auth/register",
-            new RegisterRequest()
-            {
-                Username = "pe",
-                Email = "peter@cando.de",
-                Password = "Password123!"
-            });
-
-        _ = response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        _ = response.Content.Headers.ContentType!.MediaType.Should().Be("application/problem+json");
-
-        var message = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
-        _ = message!.Status.Should().Be(400);
-        _ = message!.Detail.Should().Be("One or more errors occured!");
-        _ = message!.Errors["Username"][0].Should().Be("username is too short!");*/
 
         var response = await client.PostAsJsonAsync(
             "api/auth/register",
@@ -76,11 +59,52 @@ public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<Acc
         var message = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
         _ = message!.Status.Should().Be(400);
         _ = message!.Title.Should().Be("One or more validation errors occurred.");
-        _ = message!.Errors[Errors.User.UsernameEmpty.Code][0].Should().Be(Errors.User.UsernameEmpty.Description);
+        _ = message!.Errors["Username"][0].Should().Be("username should not be empty.");
+
+        client = await this.InitTestAsync();
+
+        response = await client.PostAsJsonAsync(
+            "api/auth/register",
+            new RegisterRequest()
+            {
+                Username = "",
+                Email = "",
+                Password = "Password123!"
+            });
+
+        _ = response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        _ = response.Content.Headers.ContentType!.MediaType.Should().Be("application/problem+json");
+
+        message = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
+        _ = message!.Status.Should().Be(400);
+        _ = message!.Title.Should().Be("One or more validation errors occurred.");
+        _ = message!.Errors["Username"][0].Should().Be("username should not be empty.");
+        _ = message!.Errors["Email"][0].Should().Be("email should not be empty.");
+
+        client = await this.InitTestAsync();
+
+        response = await client.PostAsJsonAsync(
+            "api/auth/register",
+            new RegisterRequest()
+            {
+                Username = "",
+                Email = "",
+                Password = ""
+            });
+
+        _ = response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        _ = response.Content.Headers.ContentType!.MediaType.Should().Be("application/problem+json");
+
+        message = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
+        _ = message!.Status.Should().Be(400);
+        _ = message!.Title.Should().Be("One or more validation errors occurred.");
+        _ = message!.Errors["Username"][0].Should().Be("username should not be empty.");
+        _ = message!.Errors["Email"][0].Should().Be("email should not be empty.");
+        _ = message!.Errors["Password"][0].Should().Be("password should not be empty.");
     }
 
     [Fact]
-    public async Task POST_register_user_ok_then_bad_username_already_existed_400_Async()
+    public async Task POST_register_user_ok_then_bad_username_already_existed_409_Async()
     {
         var client = await this.InitTestAsync();
 
@@ -104,13 +128,12 @@ public sealed class AuthEndpointTests : IClassFixture<TestApplicationFactory<Acc
                 Password = "Password123!"
             });
 
-        _ = response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        _ = response.StatusCode.Should().Be(HttpStatusCode.Conflict);
         _ = response.Content.Headers.ContentType!.MediaType.Should().Be("application/problem+json");
 
-        var message = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
-        _ = message!.Status.Should().Be(400);
-        _ = message!.Title.Should().Be("One or more validation errors occurred.");
-        _ = message!.Errors[Errors.User.UsernameAlreadyExists.Code][0].Should().Be(Errors.User.UsernameAlreadyExists.Description);
+        var message = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+        _ = message!.Status.Should().Be(409);
+        _ = message!.Title.Should().Be(Errors.User.UsernameAlreadyExists.Description);
     }
 
     [Fact]
