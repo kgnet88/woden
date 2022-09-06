@@ -15,6 +15,8 @@ global using KgNet88.Woden.Account.Infrastructure.Auth.Persistence;
 global using KgNet88.Woden.Account.Infrastructure.Auth.Persistence.Database;
 global using KgNet88.Woden.Account.Infrastructure.Auth.Persistence.Database.Model;
 global using KgNet88.Woden.Account.Infrastructure.Common.Implementations;
+global using KgNet88.Woden.Account.Infrastructure.Profile.Persistence.Database;
+global using KgNet88.Woden.Account.Infrastructure.Profile.Persistence.Database.Model;
 
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

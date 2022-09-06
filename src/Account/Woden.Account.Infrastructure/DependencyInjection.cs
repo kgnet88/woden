@@ -5,6 +5,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
     {
         _ = services.AddAuth(configuration);
+        _ = services.AddProfileDb(configuration);
 
         _ = services.AddScoped<IAuthRepository, AuthRepository>();
         _ = services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
@@ -50,6 +51,17 @@ public static class DependencyInjection
         });
 
         _ = services.AddAuthenticationJWTBearer(jwtSettings.Secret ?? "TokenSigningKeyAVeryDarkSecretString");
+
+        return services;
+    }
+
+    public static IServiceCollection AddProfileDb(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        _ = services.AddDbContext<ProfileDbContext>(options =>
+        {
+            _ = options.UseNpgsql(configuration.GetConnectionString("WodenDb")!);
+            _ = options.UseLazyLoadingProxies();
+        });
 
         return services;
     }
