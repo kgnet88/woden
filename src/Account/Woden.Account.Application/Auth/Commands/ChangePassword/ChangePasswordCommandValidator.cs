@@ -1,20 +1,19 @@
-﻿namespace KgNet88.Woden.Account.Application.Auth.Commands.Register;
-
-public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
+﻿namespace KgNet88.Woden.Account.Application.Auth.Commands.ChangePassword;
+public class ChangePasswordCommandValidator : AbstractValidator<ChangePasswordCommand>
 {
-    public RegisterCommandValidator()
+    public ChangePasswordCommandValidator()
     {
         _ = this.RuleFor(x => x.Username)
             .NotEmpty()
             .WithMessage("username should not be empty.");
 
-        _ = this.RuleFor(x => x.Email)
+        _ = this.RuleFor(x => x.OldPassword)
             .NotEmpty()
-            .WithMessage("email should not be empty.");
+            .WithMessage("old password should not be empty.");
 
-        _ = this.RuleFor(x => x.Password)
+        _ = this.RuleFor(x => x.NewPassword)
             .NotEmpty()
-            .WithMessage("password should not be empty.")
+            .WithMessage("new password should not be empty.")
             .MinimumLength(8)
             .WithMessage("password must be at least 8 characters long.")
             .Must(password => password.Any(x => char.IsUpper(x)))

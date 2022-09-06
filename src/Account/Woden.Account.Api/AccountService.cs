@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Diagnostics;
+
 namespace KgNet88.Woden.Account.Api;
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Roslynator", "RCS1102:Make class static.", Justification = "Reflection")]
@@ -7,29 +9,27 @@ public class AccountService
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
-
         _ = builder.Services
             .AddPresentation()
             .AddApplication()
             .AddInfrastructure(builder.Configuration);
 
-        _ = builder.Services.AddFastEndpoints();
-
-        _ = builder.Services.AddSwaggerDoc(settings =>
-        {
-            settings.Title = "Woden Auth API";
-            settings.Version = "v1";
-        },
-        serializer =>
-        {
-            serializer.PropertyNamingPolicy = null;
-            serializer.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-        }, shortSchemaNames: true);
-
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
+        // catch all Exception handler (only unexpected exceptions go through here)
+        _ = app.UseExceptionHandler(appError => appError.Run(async context =>
+        {
+            var factory = app.Services.GetService<ProblemDetailsFactory>();
+
+            var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+
+            if (contextFeature != null)
+            {
+                ErrorOr<Success> error = Error.Unexpected("General.Unexpected", contextFeature.Error.Message);
+                await error.SendProblemDetailsAsync(context, factory!);
+            }
+        }));
+
         _ = app.UseAuthentication();
         _ = app.UseAuthorization();
 

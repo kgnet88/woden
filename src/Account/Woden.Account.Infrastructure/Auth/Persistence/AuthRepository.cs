@@ -9,6 +9,51 @@ public class AuthRepository : IAuthRepository
         this._userManager = userManager;
     }
 
+    public async Task<ErrorOr<Success>> ChangePasswordAsync(string username, string oldPassword, string newPassword)
+    {
+        var user = await this._userManager.FindByNameAsync(username);
+
+        if (user == null)
+        {
+            return Errors.User.DoesNotExist;
+        }
+
+        bool validCredentials = await this._userManager.CheckPasswordAsync(
+            user,
+            oldPassword);
+
+        if (!validCredentials)
+        {
+            return Errors.User.InvalidCredentials;
+        }
+
+        var result = await this._userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+
+        return result.Succeeded ? Result.Success : Errors.Database.ChangePasswordFailed;
+    }
+
+    public async Task<ErrorOr<Success>> ChangeEmailAsync(string username, string newEmail)
+    {
+        var user = await this._userManager.FindByEmailAsync(newEmail);
+
+        if (user is not null)
+        {
+            return Errors.User.EmailAlreadyExists;
+        }
+
+        user = await this._userManager.FindByNameAsync(username);
+
+        if (user is null)
+        {
+            return Errors.User.DoesNotExist;
+        }
+
+        string token = await this._userManager.GenerateChangeEmailTokenAsync(user, newEmail);
+        var result = await this._userManager.ChangeEmailAsync(user, newEmail, token);
+
+        return result.Succeeded ? Result.Success : Errors.Database.ChangeEmailFailed;
+    }
+
     public async Task<ErrorOr<Deleted>> DeleteUserByNameAsync(string username)
     {
         var user = await this._userManager.FindByNameAsync(username);

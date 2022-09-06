@@ -13,9 +13,9 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<LoginResult
         this._jwtTokenGenerator = jwtTokenGenerator;
     }
 
-    public async Task<ErrorOr<LoginResult>> Handle(LoginQuery request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<LoginResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
     {
-        var user = await this._authRepository.LoginUserAsync(request.Username, request.Password);
+        var user = await this._authRepository.LoginUserAsync(query.Username, query.Password);
 
         if (user.IsError)
         {

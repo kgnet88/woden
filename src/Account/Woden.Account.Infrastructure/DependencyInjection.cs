@@ -46,7 +46,7 @@ public static class DependencyInjection
             options.Lockout.AllowedForNewUsers = true;
 
             // User settings.
-            options.User.RequireUniqueEmail = false;
+            options.User.RequireUniqueEmail = true;
         });
 
         _ = services.AddAuthenticationJWTBearer(jwtSettings.Secret ?? "TokenSigningKeyAVeryDarkSecretString");

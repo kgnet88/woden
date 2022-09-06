@@ -12,10 +12,11 @@ public class RegisterSummary : Summary<RegisterEndpoint, RegisterRequest>
         this.ExampleRequest = new RegisterRequest() { Username = "peter", Email = "peter@cando.de", Password = "Password123!" };
 
         this.RequestParam(x => x.Username, "username for login");
-        this.RequestParam(x => x.Email, "email for validation");
+        this.RequestParam(x => x.Email, "unique email for validation");
         this.RequestParam(x => x.Password, "password for login");
 
         this.Response(200, "ok response, user was successfull registered");
         this.Response(400, "error - user could not be registered");
+        this.Response(409, "error - user with same username or email already existed");
     }
 }
