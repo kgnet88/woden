@@ -15,6 +15,7 @@ public class LoginSummary : Summary<LoginEndpoint, LoginRequest>
         this.RequestParam(x => x.Password, "password for authentication");
 
         this.Response<LoginResponse>(200, "ok response with access token and timestamp");
-        this.Response(400, "error - user could not log in");
+        this.Response(400, "error - invalid credentials");
+        this.Response(404, "error - user does not exist");
     }
 }

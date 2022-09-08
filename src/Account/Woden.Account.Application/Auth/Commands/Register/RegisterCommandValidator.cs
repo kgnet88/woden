@@ -14,6 +14,16 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
 
         _ = this.RuleFor(x => x.Password)
             .NotEmpty()
-            .WithMessage("password should not be empty.");
+            .WithMessage("password should not be empty.")
+            .MinimumLength(8)
+            .WithMessage("password must be at least 8 characters long.")
+            .Must(password => password.Any(x => char.IsUpper(x)))
+            .WithMessage("password must contain at least one capital letter.")
+            .Must(password => password.Any(x => char.IsLower(x)))
+            .WithMessage("password must contain at least one lowercase letter.")
+            .Must(password => password.Any(x => char.IsDigit(x)))
+            .WithMessage("password must contain at least one number.")
+            .Must(password => password.Any(x => !char.IsLetterOrDigit(x)))
+            .WithMessage("password must contain at least one special character.");
     }
 }
