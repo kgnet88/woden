@@ -7,9 +7,9 @@ global using FluentValidation;
 global using KgNet88.Woden.Account.Application.Auth.Interfaces;
 global using KgNet88.Woden.Account.Application.Auth.Persistence;
 global using KgNet88.Woden.Account.Application.Common.Behaviors;
-global using KgNet88.Woden.Account.Application.Profile.Persistence;
+global using KgNet88.Woden.Account.Application.Profiles.Persistence;
 global using KgNet88.Woden.Account.Domain.Auth.Entities;
-global using KgNet88.Woden.Account.Domain.Profile.Entities;
+global using KgNet88.Woden.Account.Domain.Profiles.Entities;
 
 global using MediatR;
 

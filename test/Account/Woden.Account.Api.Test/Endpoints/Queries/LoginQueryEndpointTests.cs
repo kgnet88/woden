@@ -98,7 +98,7 @@ public class LoginQueryEndpointTests : AbstractEndpointTestTemplate
 
         var message = await response.Content.ReadFromJsonAsync<ProblemDetails>();
         _ = message!.Status.Should().Be(400);
-        _ = message!.Title.Should().Be(Errors.User.InvalidCredentials.Description);
+        _ = message!.Title.Should().Be(AuthErrors.User.InvalidCredentials.Description);
     }
 
     // user does not exists failure test (status: 404)
@@ -120,6 +120,6 @@ public class LoginQueryEndpointTests : AbstractEndpointTestTemplate
 
         var message = await response.Content.ReadFromJsonAsync<ProblemDetails>();
         _ = message!.Status.Should().Be(404);
-        _ = message!.Title.Should().Be(Errors.User.DoesNotExist.Description);
+        _ = message!.Title.Should().Be(AuthErrors.User.DoesNotExist.Description);
     }
 }

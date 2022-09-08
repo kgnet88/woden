@@ -28,4 +28,9 @@
 	  <PackageReference Include="ErrorOr" Version="1.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Common\" />
+	  <Folder Include="Repositories\" />
+	</ItemGroup>
+
 </Project>

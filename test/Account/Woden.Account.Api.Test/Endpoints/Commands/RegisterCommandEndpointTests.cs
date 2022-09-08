@@ -153,7 +153,7 @@ public class RegisterCommandEndpointTests : AbstractEndpointTestTemplate
 
         var message = await response.Content.ReadFromJsonAsync<ProblemDetails>();
         _ = message!.Status.Should().Be(409);
-        _ = message!.Title.Should().Be(Errors.User.UsernameAlreadyExists.Description);
+        _ = message!.Title.Should().Be(AuthErrors.User.UsernameAlreadyExists.Description);
     }
 
     [Fact]
@@ -175,6 +175,6 @@ public class RegisterCommandEndpointTests : AbstractEndpointTestTemplate
 
         var message = await response.Content.ReadFromJsonAsync<ProblemDetails>();
         _ = message!.Status.Should().Be(409);
-        _ = message!.Title.Should().Be(Errors.User.EmailAlreadyExists.Description);
+        _ = message!.Title.Should().Be(AuthErrors.User.EmailAlreadyExists.Description);
     }
 }
