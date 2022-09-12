@@ -14,4 +14,9 @@ public record User
     /// The users credentials for login.
     /// </summary>
     public required Credentials Credentials { get; init; }
+
+    /// <summary>
+    /// Last login timepoint into the account.
+    /// </summary>
+    public required ZonedDateTime LastLogin { get; init; }
 }

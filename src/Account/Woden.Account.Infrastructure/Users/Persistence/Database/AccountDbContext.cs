@@ -21,13 +21,13 @@ public class AccountDbContext
     /// <summary>
     /// Configures the schema needed for the identity framework.
     /// </summary>
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(builder);
 
-        _ = modelBuilder.HasDefaultSchema("account");
+        _ = builder.HasDefaultSchema("account");
 
-        _ = modelBuilder.Entity<DbUser>(b =>
+        _ = builder.Entity<DbUser>(b =>
         {
             _ = b.ToTable("Users");
 
@@ -56,7 +56,7 @@ public class AccountDbContext
                 .IsRequired();
         });
 
-        _ = modelBuilder.Entity<DbRole>(b =>
+        _ = builder.Entity<DbRole>(b =>
         {
             _ = b.ToTable("Roles");
 
@@ -73,10 +73,10 @@ public class AccountDbContext
                 .IsRequired();
         });
 
-        _ = modelBuilder.Entity<DbUserClaim>(b => b.ToTable("UserClaims"));
-        _ = modelBuilder.Entity<DbUserLogin>(b => b.ToTable("UserLogins"));
-        _ = modelBuilder.Entity<DbRoleClaim>(b => b.ToTable("RoleClaims"));
-        _ = modelBuilder.Entity<DbUserRole>(b => b.ToTable("UserRoles"));
-        _ = modelBuilder.Entity<DbUserToken>(b => b.ToTable("UserTokens"));
+        _ = builder.Entity<DbUserClaim>(b => b.ToTable("UserClaims"));
+        _ = builder.Entity<DbUserLogin>(b => b.ToTable("UserLogins"));
+        _ = builder.Entity<DbRoleClaim>(b => b.ToTable("RoleClaims"));
+        _ = builder.Entity<DbUserRole>(b => b.ToTable("UserRoles"));
+        _ = builder.Entity<DbUserToken>(b => b.ToTable("UserTokens"));
     }
 }
